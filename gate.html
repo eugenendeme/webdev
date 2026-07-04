@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome</title>
+<style>
+  body{font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;
+       height:100vh;margin:0;background:#faf9f8;}
+  form{background:#fff;padding:2.5rem 2rem;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.08);
+       width:90%;max-width:360px;}
+  h2{margin-bottom:1.2rem;color:#1B1B1F;}
+  input{width:100%;padding:.85rem 1rem;margin-bottom:1rem;border:1.5px solid #E3E3E7;
+        border-radius:8px;font-size:.95rem;box-sizing:border-box;}
+  button{width:100%;padding:.9rem;border:none;border-radius:40px;background:#F04E23;
+         color:#fff;font-weight:600;font-size:.95rem;cursor:pointer;}
+  button:disabled{opacity:.6;}
+  #error{color:#c0392b;font-size:.85rem;margin-top:-.5rem;margin-bottom:1rem;display:none;}
+</style>
+</head>
+<body>
+
+<form id="gateForm">
+  <h2>Quick Sign-In</h2>
+  <input type="text" id="fullname" placeholder="Full Name" required>
+  <input type="tel" id="whatsapp" placeholder="WhatsApp Number (e.g. 6XXXXXXXX)" required>
+  <div id="error"></div>
+  <button type="submit" id="submitBtn">Continue</button>
+</form>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp }
+        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB4QvPSe8aXDEUiIa7dg4ic2GKJ0fdbOWQ",
+    authDomain: "myproject1-9f2a1.firebaseapp.com",
+    projectId: "myproject1-9f2a1",
+    storageBucket: "myproject1-9f2a1.firebasestorage.app",
+    messagingSenderId: "1024036463074",
+    appId: "1:1024036463074:web:a86db9dce4b6fcf29c19bb"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // If they've already submitted before on this browser, skip straight to the landing page
+  if (localStorage.getItem('gatePassed')) {
+    window.location.href = "index.html";
+  }
+
+  const form = document.getElementById('gateForm');
+  const errorEl = document.getElementById('error');
+  const submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fullname = document.getElementById('fullname').value.trim();
+    const whatsapp = document.getElementById('whatsapp').value.trim();
+
+    if (!fullname || !whatsapp) {
+      errorEl.textContent = "Please enter both full name and WhatsApp number.";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    errorEl.style.display = "none";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Please wait...";
+
+    console.log('Submitting gate form', { fullname, whatsapp });
+
+    try {
+      await addDoc(collection(db, "visitors"), {
+        fullname,
+        whatsapp,
+        createdAt: serverTimestamp()
+      });
+
+      localStorage.setItem('gatePassed', 'true');
+      window.location.href = "index.html";
+    } catch (err) {
+      console.error('Gate form submit error:', err);
+      errorEl.textContent = "Submission failed. Check the browser console for details.";
+      errorEl.style.display = "block";
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Continue";
+    }
+  });
+</script>
+
+</body>
+</html>

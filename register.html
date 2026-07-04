@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register — Brilliant Ashu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --purple:#2E1854;
+    --purple-light:#4B2E85;
+    --purple-lighter:#6446A8;
+    --white:#FFFFFF;
+    --muted:#C6BADE;
+    --bg:#F3F1F7;
+    --line:#553A8F;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    font-family:'Poppins', sans-serif;
+    background: var(--bg);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 5vh 5vw;
+  }
+
+  .auth-card{
+    width: 100%;
+    max-width: 420px;
+    background: var(--purple);
+    border-radius: 20px;
+    padding: 2.6rem 2.2rem 2.2rem;
+    color: var(--white);
+    box-shadow: 0 30px 60px rgba(46,24,84,0.28);
+  }
+
+  /* ---------- LOGO ---------- */
+
+  .logo{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.6rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .logo-mark img{
+  max-width: 7rem;
+}
+
+  .logo-word{
+    font-weight:700;
+    font-size: .95rem;
+    color: var(--white);
+    letter-spacing:.01em;
+  }
+
+  h1{
+    font-size: 1.3rem;
+    font-weight:700;
+    text-align:center;
+    margin-bottom: .3rem;
+  }
+
+  .sub{
+    font-size: .83rem;
+    color: var(--muted);
+    text-align:center;
+    margin-bottom: 1.8rem;
+  }
+
+  /* ---------- FIELDS ---------- */
+
+  .field{ margin-bottom: 1.1rem; }
+
+  .field label{
+    display:block;
+    font-size: .78rem;
+    font-weight:600;
+    color: var(--white);
+    margin-bottom: .4rem;
+  }
+
+  .field input{
+    width:100%;
+    font-family:'Poppins', sans-serif;
+    font-size: .88rem;
+    padding: .8rem .95rem;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--purple-light);
+    color: var(--white);
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+
+  .field input::placeholder{ color: #A896CE; }
+
+  .field input:focus{
+    outline:none;
+    border-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.12);
+  }
+
+  /* phone field with fixed country code */
+  .phone-group{
+    display:flex;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    overflow:hidden;
+    background: var(--purple-light);
+    transition: border-color .18s ease, box-shadow .18s ease;
+  }
+
+  .phone-group:focus-within{
+    border-color: var(--white);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.12);
+  }
+
+  .phone-code{
+    display:flex;
+    align-items:center;
+    gap:.4rem;
+    padding: .8rem .8rem;
+    background: var(--purple-lighter);
+    font-size: .86rem;
+    font-weight:600;
+    color: var(--white);
+    border-right: 1.5px solid var(--line);
+    white-space:nowrap;
+  }
+
+  .phone-group input{
+    border: none;
+    border-radius: 0;
+    flex:1;
+    min-width:0;
+    background: transparent;
+  }
+
+  .phone-group input:focus{ box-shadow:none; }
+
+  .hint{
+    font-size: .7rem;
+    color: var(--muted);
+    margin-top: .35rem;
+  }
+
+  /* ---------- TERMS ---------- */
+
+  .terms{
+    display:flex;
+    align-items:flex-start;
+    gap: .5rem;
+    font-size: .76rem;
+    color: var(--muted);
+    line-height:1.5;
+    margin: -.2rem 0 1.4rem;
+  }
+  .terms input{ accent-color: var(--white); margin-top: .2rem; width:14px; height:14px; flex-shrink:0; }
+  .terms a{ color: var(--white); font-weight:600; text-decoration:underline; text-underline-offset:2px; }
+
+  /* ---------- BUTTON ---------- */
+
+  .btn-submit{
+    width:100%;
+    font-family:'Poppins', sans-serif;
+    font-weight:600;
+    font-size: .9rem;
+    color: var(--purple);
+    background: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: .85rem 0;
+    cursor:pointer;
+    transition: background .18s ease, transform .18s ease;
+  }
+
+  .btn-submit:hover{ background: #E7E1F2; transform: translateY(-1px); }
+  .btn-submit:focus-visible{ outline: 2px solid var(--white); outline-offset:3px; }
+
+  /* ---------- DIVIDER ---------- */
+
+  .divider{
+    display:flex;
+    align-items:center;
+    gap: .8rem;
+    margin: 1.6rem 0 1.2rem;
+    font-size: .72rem;
+    color: var(--muted);
+  }
+  .divider::before, .divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: var(--line);
+  }
+
+  /* ---------- SOCIAL BUTTONS ---------- */
+
+  .social-row{
+    display:flex;
+    gap: .7rem;
+  }
+
+  .btn-social{
+    flex:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:.55rem;
+    padding: .72rem 0;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--purple-light);
+    color: var(--white);
+    font-size: .82rem;
+    font-weight:600;
+    text-decoration:none;
+    transition: border-color .18s ease, transform .18s ease, background .18s ease;
+  }
+
+  .btn-social:hover{ border-color: var(--white); transform: translateY(-1px); }
+  .btn-social:focus-visible{ outline: 2px solid var(--white); outline-offset: 2px; }
+
+  .btn-social svg{ width:16px; height:16px; flex-shrink:0; }
+
+  /* ---------- SWITCH LINE ---------- */
+
+  .switch-line{
+    text-align:center;
+    font-size: .8rem;
+    color: var(--muted);
+    margin-top: 1.6rem;
+  }
+
+  .switch-line a{
+    color: var(--white);
+    font-weight:600;
+    text-decoration:none;
+  }
+  .switch-line a:hover{ text-decoration:underline; }
+
+  /* ---------- RESPONSIVE ---------- */
+
+  @media (max-width: 420px){
+    .auth-card{ padding: 2.2rem 1.4rem 1.8rem; border-radius: 16px; }
+    .social-row{ flex-direction:column; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="auth-card">
+
+  <div class="logo">
+    <div class="logo-mark"><img src="log1.jpg" alt=""></div>
+  </div>
+
+  <h1>Create your account</h1>
+  <p class="sub">It only takes a minute to get started.</p>
+
+  <form>
+    <div class="field">
+      <label for="reg-name">Full name</label>
+      <input type="text" id="reg-name" name="name" placeholder="Brilliant Ashu" autocomplete="name" required>
+    </div>
+
+    <div class="field">
+      <label for="reg-email">Email address</label>
+      <input type="email" id="reg-email" name="email" placeholder="you@example.com" autocomplete="email" required>
+    </div>
+
+    <div class="field">
+      <label for="reg-phone">Phone number</label>
+      <div class="phone-group">
+        <span class="phone-code">🇨🇲 +237</span>
+        <input type="tel" id="reg-phone" name="phone" placeholder="6XX XXX XXX" inputmode="numeric" pattern="6[0-9]{8}" maxlength="9" autocomplete="tel-national">
+      </div>
+      <p class="hint">9-digit Cameroon mobile number, starting with 6</p>
+    </div>
+
+    <div class="field">
+      <label for="reg-password">Password</label>
+      <input type="password" id="reg-password" name="password" placeholder="Create a password" autocomplete="new-password" required>
+    </div>
+
+    <div class="field">
+      <label for="reg-confirm">Confirm password</label>
+      <input type="password" id="reg-confirm" name="confirm-password" placeholder="Re-enter your password" autocomplete="new-password" required>
+    </div>
+
+    <label class="terms">
+      <input type="checkbox" required>
+      I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+    </label>
+
+    <button type="submit" class="btn-submit">Create Account</button>
+  </form>
+
+  <div class="divider">or sign up with</div>
+
+  <div class="social-row">
+    <a href="#" class="btn-social" aria-label="Sign up with Google">
+      <svg viewBox="0 0 24 24"><path fill="#EA4335" d="M12 10.2v3.9h5.5c-.24 1.4-1.7 4.1-5.5 4.1-3.3 0-6-2.7-6-6.2s2.7-6.2 6-6.2c1.9 0 3.15.8 3.87 1.5l2.64-2.55C16.86 3.05 14.7 2 12 2 6.9 2 2.75 6.1 2.75 11.2S6.9 20.4 12 20.4c6.9 0 9.4-4.85 9.4-7.35 0-.5-.05-.87-.12-1.25H12z"/></svg>
+      Google
+    </a>
+    <a href="#" class="btn-social" aria-label="Sign up with Twitter">
+      <svg viewBox="0 0 24 24" fill="#FFFFFF"><path d="M18.9 3H21l-6.6 7.55L22.2 21h-6.1l-4.8-6.28L5.8 21H3.6l7.06-8.08L2 3h6.25l4.34 5.74L18.9 3zm-1.07 16.17h1.16L7.24 4.76H6l11.83 14.4z"/></svg>
+      Twitter
+    </a>
+  </div>
+
+  <p class="switch-line">Already have an account? <a href="login.html">Log In</a></p>
+
+</div>
+
+</body>
+</html>
